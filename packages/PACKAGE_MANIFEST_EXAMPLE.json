@@ -1,0 +1,18 @@
+{
+  "module_id": "example_module",
+  "module_version": "1.0.0",
+  "game": "World of Tanks EU",
+  "game_version": "FILL_AFTER_TEST",
+  "author": "AUTHOR_NAME",
+  "source_url": "https://wgmods.net/...",
+  "license": "LICENSE_IDENTIFIER",
+  "redistribution_permission": "WRITTEN_PERMISSION_OR_LICENSE_URL",
+  "sha256": {},
+  "install": [
+    {
+      "source": "files/res_mods/...",
+      "destination": "res_mods/..."
+    }
+  ],
+  "notes": "Only use files that are licensed for redistribution."
+}

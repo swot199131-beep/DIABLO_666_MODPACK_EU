@@ -1,0 +1,35 @@
+name: Предложить модификацию
+description: Предложить легальную модификацию для каталога
+title: "[MOD] "
+labels: ["mod-review"]
+body:
+  - type: input
+    id: mod_name
+    attributes:
+      label: Название и автор
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Официальная страница автора/первоисточник
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Версия и совместимость с WoT EU
+    validations:
+      required: true
+  - type: textarea
+    id: license
+    attributes:
+      label: Лицензия и разрешение на перепаковку
+    validations:
+      required: true
+  - type: textarea
+    id: fairplay
+    attributes:
+      label: Почему мод соответствует Fair Play?
+    validations:
+      required: true

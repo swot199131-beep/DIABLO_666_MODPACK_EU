@@ -1,0 +1,30 @@
+name: Ошибка программы
+description: Сообщить об ошибке DIABLO
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Что произошло?
+      description: Не прикладывайте логи с личными данными без очистки.
+    validations:
+      required: true
+  - type: input
+    id: app_version
+    attributes:
+      label: Версия DIABLO
+    validations:
+      required: true
+  - type: input
+    id: game_version
+    attributes:
+      label: Версия WoT EU
+    validations:
+      required: false
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения
+    validations:
+      required: true

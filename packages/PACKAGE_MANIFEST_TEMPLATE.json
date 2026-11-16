@@ -1,0 +1,15 @@
+{
+  "module_id": "replace_with_catalog_module_id",
+  "game_version": "2.4.1.1",
+  "author": "AUTHOR",
+  "source_url": "https://official-source.example/mod",
+  "license": "LICENSE",
+  "redistribution_permission": "license_allows_redistribution",
+  "files": [
+    {
+      "source": "files/example.wotmod",
+      "destination": "mods/2.4.1.1/example.wotmod",
+      "sha256": "REPLACE_WITH_REAL_SHA256"
+    }
+  ]
+}
