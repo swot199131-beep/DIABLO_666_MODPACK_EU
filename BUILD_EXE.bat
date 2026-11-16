@@ -2,7 +2,7 @@
 setlocal EnableExtensions
 cd /d "%~dp0"
 echo ================================================
-echo DIABLO_666 MODPACK EU 0.6.0 - Windows build
+echo DIABLO_666 MODPACK EU 0.6.1 - Windows build
 echo ================================================
 
 where py >nul 2>nul
@@ -44,9 +44,9 @@ if not exist "%ISCC%" (
 "%ISCC%" "installer\DIABLO_666_MODPACK_EU.iss"
 if errorlevel 1 goto :error
 
-certutil -hashfile "dist\installer\DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe" SHA256
+certutil -hashfile "dist\installer\DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe" SHA256
 echo.
-echo SUCCESS: dist\installer\DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe
+echo SUCCESS: dist\installer\DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe
 echo This build is unsigned. Verify SHA-256 before publishing.
 pause
 exit /b 0

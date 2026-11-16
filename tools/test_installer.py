@@ -170,7 +170,7 @@ class InstallerSafetyTests(unittest.TestCase):
     def test_windows_setup_project_has_expected_output_and_per_user_install(self):
         iss = (ROOT / "installer" / "DIABLO_666_MODPACK_EU.iss").read_text(encoding="utf-8")
         self.assertIn("OutputBaseFilename=DIABLO_666_MODPACK_EU_Setup_v{#MyAppVersion}", iss)
-        self.assertIn('#define MyAppVersion "0.6.0"', iss)
+        self.assertIn('#define MyAppVersion "0.6.1"', iss)
         self.assertIn("PrivilegesRequired=lowest", iss)
         self.assertIn("DefaultDirName={localappdata}", iss)
         self.assertIn("DIABLO_666_MODPACK_EU.exe", iss)
@@ -180,7 +180,7 @@ class InstallerSafetyTests(unittest.TestCase):
         workflow = (ROOT / ".github" / "workflows" / "build-windows.yml").read_text(encoding="utf-8")
         self.assertIn("runs-on: windows-latest", workflow)
         self.assertIn("choco install innosetup", workflow)
-        self.assertIn("DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe", workflow)
+        self.assertIn("DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe", workflow)
         self.assertIn("Get-FileHash", workflow)
         self.assertIn("actions/upload-artifact@v4", workflow)
 
@@ -273,6 +273,10 @@ class InstallerSafetyTests(unittest.TestCase):
                 )
             self.assertEqual(target.read_bytes(), b"other tool")
 
+
+    def test_profile_handlers_exist(self):
+        self.assertTrue(callable(getattr(APP.DiabloInstaller, "save_profile", None)))
+        self.assertTrue(callable(getattr(APP.DiabloInstaller, "load_profile", None)))
 
     def test_profile_name_normalization(self):
         self.assertEqual(APP.normalize_profile_name("  Снайпер / EU!  "), "Снайпер  EU")

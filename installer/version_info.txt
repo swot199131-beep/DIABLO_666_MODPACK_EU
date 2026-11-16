@@ -14,12 +14,12 @@ VSVersionInfo(
       StringTable('040904B0', [
         StringStruct('CompanyName', 'DIABLO Community'),
         StringStruct('FileDescription', 'DIABLO_666 MODPACK EU'),
-        StringStruct('FileVersion', '0.6.0'),
+        StringStruct('FileVersion', '0.6.1'),
         StringStruct('InternalName', 'DIABLO_666_MODPACK_EU'),
         StringStruct('LegalCopyright', 'Community project; third-party mods remain property of their authors'),
         StringStruct('OriginalFilename', 'DIABLO_666_MODPACK_EU.exe'),
         StringStruct('ProductName', 'DIABLO_666 MODPACK EU'),
-        StringStruct('ProductVersion', '0.6.0')
+        StringStruct('ProductVersion', '0.6.1')
       ])
     ]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])

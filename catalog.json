@@ -1,6 +1,6 @@
 {
   "product": "DIABLO_666 MODPACK EU",
-  "catalog_version": "0.6.0",
+  "catalog_version": "0.6.1",
   "target": "World of Tanks EU",
   "target_game_version": "Проверять по текущему клиенту; не фиксировать устаревшую версию",
   "release_channel": "development",
@@ -1159,7 +1159,7 @@
   },
   "release_gate": {
     "ready_for_public_distribution": false,
-    "reason": "0.6.0 adds local selection profiles and refreshes official live/common-test metadata. Windows EXE build, clean-machine/game testing, per-mod compatibility verification, and public repository identity are still required."
+    "reason": "0.6.1 adds local selection profiles and refreshes official live/common-test metadata. Windows EXE build, clean-machine/game testing, per-mod compatibility verification, and public repository identity are still required."
   },
   "game_client": {
     "region": "EU",

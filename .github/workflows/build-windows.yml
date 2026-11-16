@@ -72,7 +72,7 @@ jobs:
             $signTool = Get-ChildItem "${env:ProgramFiles(x86)}\\Windows Kits\10\bin\*\x64\signtool.exe" -ErrorAction SilentlyContinue |
               Sort-Object FullName -Descending | Select-Object -First 1
             if (!$signTool) { throw "Windows SDK signtool.exe not found" }
-            $setup = "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe"
+            $setup = "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe"
             & $signTool.FullName sign /f $pfx /p $env:WINDOWS_CERTIFICATE_PASSWORD /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $setup
             if ($LASTEXITCODE -ne 0) { throw "Authenticode signing failed" }
             Remove-Item $pfx -Force
@@ -85,13 +85,13 @@ jobs:
           WINDOWS_CERTIFICATE_BASE64: ${{ secrets.WINDOWS_CERTIFICATE_BASE64 }}
         shell: pwsh
         run: |
-          $setup = "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe"
+          $setup = "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe"
           $hash = (Get-FileHash $setup -Algorithm SHA256).Hash.ToLower()
-          "$hash  DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe" | Set-Content "$setup.sha256"
+          "$hash  DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe" | Set-Content "$setup.sha256"
           $signature = if ($env:WINDOWS_CERTIFICATE_BASE64) { "Authenticode signed" } else { "unsigned" }
           @"
           Product: DIABLO_666 MODPACK EU
-          Version: 0.6.0
+          Version: 0.6.1
           Platform: Windows x64
           Installer: Inno Setup 6
           Signature: $signature
@@ -101,11 +101,11 @@ jobs:
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: DIABLO_666_MODPACK_EU_Setup_v0.6.0_Windows_x64
+          name: DIABLO_666_MODPACK_EU_Setup_v0.6.1_Windows_x64
           if-no-files-found: error
           path: |
-            dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe
-            dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe.sha256
+            dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe
+            dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe.sha256
             dist/installer/RELEASE_INFO.txt
 
       - name: Publish GitHub Release for version tags
@@ -115,8 +115,8 @@ jobs:
         shell: pwsh
         run: |
           gh release create "$env:GITHUB_REF_NAME" `
-            "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe" `
-            "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe.sha256" `
+            "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe" `
+            "dist/installer/DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe.sha256" `
             "dist/installer/RELEASE_INFO.txt" `
-            --title "DIABLO_666 MODPACK EU 0.6.0" `
+            --title "DIABLO_666 MODPACK EU 0.6.1" `
             --notes "Windows x64 community installer. See RELEASE_INFO.txt for signature status. Third-party mod binaries are not redistributed."

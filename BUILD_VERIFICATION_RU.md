@@ -1,4 +1,4 @@
-# Проверка DIABLO_666 MODPACK EU 0.6.0
+# Проверка DIABLO_666 MODPACK EU 0.6.1
 
 - Python syntax: PASS.
 - Catalog validator: PASS — 52 карточки; placeholder/external-only не считаются установочными пакетами.

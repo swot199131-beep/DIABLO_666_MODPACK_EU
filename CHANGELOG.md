@@ -143,3 +143,8 @@
 - Обновлены app/installer/CI version strings.
 - Разведены live micropatch 2.4.1_4 и Common Test 2.4.2 по официальным источникам.
 - Обновлён Fair Play audit: исключены enemy reload timers, position reveal, shot automation/macros and expanded auto-aim.
+
+
+## 0.6.1
+- Исправлен запуск: добавлены отсутствовавшие методы сохранения и загрузки профилей.
+- Добавлен регрессионный тест наличия обработчиков профилей.

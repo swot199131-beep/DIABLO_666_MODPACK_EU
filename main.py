@@ -72,7 +72,7 @@ class DiabloInstaller:
     def __init__(self, root):
         self.root = root
         APP_DATA_DIR.mkdir(parents=True, exist_ok=True)
-        self.root.title("DIABLO_666 MODPACK EU 0.6.0")
+        self.root.title("DIABLO_666 MODPACK EU 0.6.1")
         self.root.geometry("1120x720")
         self.root.minsize(980, 640)
         self.root.configure(bg=BG)
@@ -102,7 +102,7 @@ class DiabloInstaller:
                  font=("Segoe UI", 25, "bold")).pack(side="left", padx=(24, 8), pady=16)
         tk.Label(header, text="MODPACK EU", fg=RED, bg="#090a0d",
                  font=("Segoe UI", 19, "bold")).pack(side="left", pady=20)
-        tk.Label(header, text="COMMUNITY EDITION  •  BUILD 0.6.0  •  LIVE 2.4.1_4 / MODS 2.4.1.1",
+        tk.Label(header, text="COMMUNITY EDITION  •  BUILD 0.6.1  •  LIVE 2.4.1_4 / MODS 2.4.1.1",
                  fg=MUTED, bg="#090a0d", font=("Segoe UI", 9, "bold")).pack(side="right", padx=24)
 
         body = tk.Frame(self.root, bg=BG)
@@ -210,7 +210,7 @@ class DiabloInstaller:
                   bg=PANEL2, fg=TEXT, relief="flat", padx=12).pack(side="right")
         bottom = tk.Frame(footer, bg="#090a0d")
         bottom.pack(fill="x", padx=18, pady=(4, 12))
-        self.status = tk.Label(bottom, text="DIABLO 0.6.0 • WoT EU LIVE 2.4.1_4 • mods/2.4.1.1 • Official-source local imports.",
+        self.status = tk.Label(bottom, text="DIABLO 0.6.1 • WoT EU LIVE 2.4.1_4 • mods/2.4.1.1 • Official-source local imports.",
                                bg="#090a0d", fg=MUTED, anchor="w")
         self.status.pack(side="left", fill="x", expand=True)
         tk.Button(bottom, text="ЗАГРУЗИТЬ ПРОФИЛЬ", command=self.load_profile,
@@ -231,6 +231,84 @@ class DiabloInstaller:
                   bg=RED, fg="white", activebackground="#a91f29",
                   activeforeground="white", relief="flat",
                   font=("Segoe UI", 10, "bold"), padx=18, pady=11).pack(side="right")
+
+    def _profiles_dir(self):
+        """Return the per-user directory used for saved selection profiles."""
+        path = APP_DATA_DIR / "profiles"
+        path.mkdir(parents=True, exist_ok=True)
+        return path
+
+    def save_profile(self):
+        name = simpledialog.askstring(
+            "Сохранить профиль",
+            "Название профиля (например, «Снайпер» или «Универсальный»):",
+            parent=self.root
+        )
+        if not name:
+            return
+        try:
+            safe_name = normalize_profile_name(name)
+        except ValueError as exc:
+            messagebox.showwarning("Название профиля", str(exc))
+            return
+
+        selected = sorted(mid for mid, value in self.checked.items() if value)
+        if not selected:
+            messagebox.showwarning("Пустой профиль", "Сначала выберите хотя бы один мод.")
+            return
+
+        profile = {
+            "schema_version": 1,
+            "name": safe_name,
+            "created_at": datetime.now().isoformat(timespec="seconds"),
+            "catalog_version": self.catalog.get("catalog_version", "unknown"),
+            "game_region": "EU",
+            "game_path": str(self.game_path) if self.game_path else None,
+            "selected_module_ids": selected
+        }
+        path = self._profiles_dir() / (safe_name + ".json")
+        if path.exists() and not messagebox.askyesno(
+            "Перезаписать профиль",
+            f"Профиль «{safe_name}» уже существует. Перезаписать?"
+        ):
+            return
+        temporary = path.with_suffix(".json.tmp")
+        temporary.write_text(
+            json.dumps(profile, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        temporary.replace(path)
+        self.status.config(text=f"Профиль сохранён: {safe_name}")
+        messagebox.showinfo(
+            "Профиль сохранён",
+            f"Сохранено модификаций: {len(selected)}."
+        )
+
+    def load_profile(self):
+        path = filedialog.askopenfilename(
+            title="Загрузить профиль DIABLO",
+            initialdir=self._profiles_dir(),
+            filetypes=[("Профили DIABLO", "*.json")]
+        )
+        if not path:
+            return
+        try:
+            profile = json.loads(Path(path).read_text(encoding="utf-8"))
+            known_ids = {module["id"] for module in self.modules}
+            selected_ids = validate_profile_payload(profile, known_ids)
+            for module_id in self.checked:
+                is_selected = module_id in selected_ids
+                self.checked[module_id] = is_selected
+                self.module_vars[module_id].set(is_selected)
+            self.refresh_module_list()
+            profile_name = profile.get("name", Path(path).stem)
+            self.status.config(text=f"Загружен профиль: {profile_name}")
+            messagebox.showinfo(
+                "Профиль загружен",
+                f"Выбрано модификаций: {len(selected_ids)}.\n"
+                "Загрузка профиля не устанавливает моды. Проверьте выбор и запускайте установку отдельно."
+            )
+        except Exception as exc:
+            messagebox.showerror("Ошибка профиля", str(exc))
 
     def refresh_module_list(self):
         if not hasattr(self, "module_list"):
@@ -275,7 +353,7 @@ class DiabloInstaller:
                 if not cache_path.is_file():
                     request = urllib.request.Request(
                         preview_url,
-                        headers={"User-Agent": "DIABLO-666-MODPACK-EU/0.6.0"}
+                        headers={"User-Agent": "DIABLO-666-MODPACK-EU/0.6.1"}
                     )
                     with urllib.request.urlopen(request, timeout=4) as response:
                         image_data = response.read(5 * 1024 * 1024 + 1)

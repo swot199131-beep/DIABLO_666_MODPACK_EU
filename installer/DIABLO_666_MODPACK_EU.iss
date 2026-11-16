@@ -1,5 +1,5 @@
 #define MyAppName "DIABLO_666 MODPACK EU"
-#define MyAppVersion "0.6.0"
+#define MyAppVersion "0.6.1"
 #define MyAppPublisher "DIABLO Community"
 #define MyAppExeName "DIABLO_666_MODPACK_EU.exe"
 
@@ -26,11 +26,11 @@ CloseApplications=yes
 RestartApplications=no
 Uninstallable=yes
 UsePreviousAppDir=yes
-VersionInfoVersion=0.6.0.0
+VersionInfoVersion=0.6.1.0
 VersionInfoCompany=DIABLO Community
 VersionInfoDescription=DIABLO_666 MODPACK EU Setup
 VersionInfoProductName=DIABLO_666 MODPACK EU
-VersionInfoProductVersion=0.6.0
+VersionInfoProductVersion=0.6.1
 
 [Languages]
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"

@@ -1,6 +1,6 @@
 {
   "product": "DIABLO_666 MODPACK EU",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "release_channel": "developer_preview",
   "target_game": "World of Tanks EU",
   "official_eu_micropatch": "2.4.1_4",
@@ -35,5 +35,5 @@
   "live_eu_patch": "2.4.1_4",
   "common_test": "2.4.2",
   "automatic_app_updates": "not_enabled_until_public_repository_is_configured",
-  "windows_setup_exe_target": "DIABLO_666_MODPACK_EU_Setup_v0.6.0.exe"
+  "windows_setup_exe_target": "DIABLO_666_MODPACK_EU_Setup_v0.6.1.exe"
 }
